@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 
-public class Snake implements Serializable {	
+public class Snake implements Serializable, Comparable<Snake> {	
 	private static int autoIncrement = 0;
 	private int id;
 	private boolean canTurn = true;
@@ -118,6 +118,7 @@ public class Snake implements Serializable {
 	{
 		if(head.x == food.getX() && head.y == food.getY())
 		{
+			score++;
 			increaseLength();
 			return true;
 		}
@@ -139,7 +140,7 @@ public class Snake implements Serializable {
 	
 	public String toString()
 	{
-		return "Snake(" + id + ")";
+		return "S"+id;
 	}
 
 	public InputLayout getControl() {
@@ -149,16 +150,23 @@ public class Snake implements Serializable {
 	public int getScore() {
 		return score;
 	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
+	
 	public record InputLayout(int upKeyCode,int rightKeyCode,int downKeyCode,int leftKeyCode) implements Serializable {}
 	
 	//Enum direction
 	public enum Direction {
 		UP,DOWN,RIGHT,LEFT
+	}
+
+	@Override
+	public int compareTo(Snake o) {
+		// TODO Auto-generated method stub
+		if(score > o.score)
+			return 1;
+		else if(score == o.score)
+			return 0;
+		else
+			return -1;
 	}
 
 }

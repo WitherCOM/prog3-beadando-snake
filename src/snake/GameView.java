@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -30,6 +32,18 @@ public class GameView extends JPanel {
 		getActionMap().clear();
 		this.model = model;
 		this.model.getSnakes().forEach(t -> setInputLayout(t));
+		addKeyAction(KeyEvent.VK_P, "pause", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.stopGame();
+			}
+		});
+		addKeyAction(KeyEvent.VK_R, "resume", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.startGame();
+			}
+		});
 		this.model.addGameActionListener(new GameActionListener() {
 			
 			@Override
@@ -39,19 +53,22 @@ public class GameView extends JPanel {
 			}
 			
 			@Override
-			public void snakeEatenFood(Snake s) {
+			public void snakeEatenFood(List<Snake> snakes) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
-			public void gameOver() {
+			public void gameOver(Snake winner) {
 				// TODO Auto-generated method stub
 				System.out.println("Game over!");
 			}
+
+			@Override
+			public void gameTimeTick(int currentTime) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
-		
-		setPreferredSize(new Dimension(model.getGameMode().mapSize()*WIDTH,model.getGameMode().mapSize()*HEIGHT));
 	}
 	
 	@Override
@@ -59,12 +76,16 @@ public class GameView extends JPanel {
         super.paintComponent(g);
 		Graphics2D drawer = (Graphics2D)g;
 		if(model != null)
-		{
+		{		
+		
+		//Draw food(s)
 		for(Food food : model.getFoods() )
 		{
 			drawer.setColor(Color.RED);
 			drawer.fillRect(food.getX()*WIDTH, food.getY()*HEIGHT, WIDTH, HEIGHT);
 		}
+		
+		//Draw snake(s)
 		for(Snake snake : model.getSnakes() )
 		{
 				for(Point p : snake.getBodyPoints())
@@ -78,6 +99,8 @@ public class GameView extends JPanel {
 				drawer.fillRect(snake.getHeadX()*WIDTH, snake.getHeadY()*HEIGHT, WIDTH, HEIGHT);
 				drawer.setColor(Color.BLACK);
 				drawer.drawRect(snake.getHeadX()*WIDTH, snake.getHeadY()*HEIGHT, WIDTH, HEIGHT);
+				drawer.setColor(Color.WHITE);
+				drawer.drawChars(snake.toString().toCharArray(), 0, 2, snake.getHeadX()*WIDTH+WIDTH/4, snake.getHeadY()*HEIGHT+HEIGHT/2);
 		}
 		
 	}
@@ -118,5 +141,10 @@ public class GameView extends JPanel {
 				snake.turnLeft();
 			}
 		});
+    }
+    
+    public Dimension getFrameDimension()
+    {
+    	return new Dimension(model.getGameMode().mapSize()*WIDTH,model.getGameMode().mapSize()*HEIGHT);
     }
 }

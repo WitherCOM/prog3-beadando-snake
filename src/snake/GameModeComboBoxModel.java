@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import snake.GameData.GameMode;
@@ -13,10 +14,13 @@ public class GameModeComboBoxModel implements ComboBoxModel<GameData.GameMode> {
 
 	private List<GameData.GameMode> gameModes;
 	private GameData.GameMode selected;
+	private List<ListDataListener> listeners;
 	
 	public GameModeComboBoxModel(List<GameData.GameMode> gameModes)
 	{
 		this.gameModes = gameModes;
+		selected = gameModes.get(0);
+		listeners = new ArrayList<ListDataListener>();
 	}
 	
 	@Override
@@ -34,7 +38,7 @@ public class GameModeComboBoxModel implements ComboBoxModel<GameData.GameMode> {
 	@Override
 	public void addListDataListener(ListDataListener l) {
 		// TODO Auto-generated method stub
-		
+		listeners.add(l);
 	}
 
 	@Override
@@ -47,6 +51,7 @@ public class GameModeComboBoxModel implements ComboBoxModel<GameData.GameMode> {
 	public void setSelectedItem(Object anItem) {
 		// TODO Auto-generated method stub
 		selected = (GameData.GameMode)anItem;
+		listeners.forEach(t -> t.contentsChanged(new ListDataEvent(anItem, 0, 0, 1)));
 	}
 
 	@Override
