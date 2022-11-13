@@ -11,7 +11,7 @@ import java.util.Random;
 
 import javax.swing.Timer;
 
-public class GameData {
+public class GameData implements Serializable {
 	private List<Snake> snakes;
 	private List<Food> foods;
 	private GameMode gameMode;

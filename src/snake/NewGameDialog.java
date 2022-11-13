@@ -91,7 +91,7 @@ public class NewGameDialog extends JDialog {
 	
 	public NewGameDialog(JFrame frame,List<GameData.GameMode> gameModes)
 	{
-		super(frame,"New game");
+		super(frame,"New game",true);
 		gameModeComboBoxModel = new GameModeComboBoxModel(gameModes);
 		initComponents();
 	}
