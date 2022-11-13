@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,11 +11,13 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -34,6 +37,7 @@ public class NewGameDialog extends JDialog {
 		JPanel panel1 = new JPanel();
 		JComboBox<GameData.GameMode> gameModeSelection = new JComboBox<GameData.GameMode>();
 		gameModeSelection.setModel(gameModeComboBoxModel);
+		gameModeSelection.setRenderer(new GameModeListCellRenderer());
 		panel1.add(new JLabel("Select game"));
 		panel1.add(gameModeSelection);
 		add(panel1);
@@ -113,7 +117,23 @@ public class NewGameDialog extends JDialog {
 		gameData.addSnake(new Snake(5, 4, 4, gameMode.mapSize(), Snake.Direction.RIGHT,arrowInput));
 		setVisible(false);
 	}
+	
 	public GameData getGameData() {
 		return gameData;
+	}
+	
+	public class GameModeListCellRenderer extends DefaultListCellRenderer {
+
+	    @Override
+	    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+	        if (value instanceof GameMode) {
+	            value = ((GameMode)value).name();
+	        }
+
+	        return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus); 
+
+	    }
+
 	}
 }

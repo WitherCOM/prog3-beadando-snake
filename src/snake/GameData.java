@@ -38,6 +38,15 @@ public class GameData {
 	public List<Food> getFoods() {
 		return foods;
 	}
+	
+	public void addFood(Food food) {
+		foods.add(food);
+	}
+	
+	public void removeFood(Food food)
+	{
+		foods.remove(food);
+	}
 
 	public GameMode getGameMode() {
 		return gameMode;
@@ -70,7 +79,7 @@ public class GameData {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Random rand = new Random();
-				foods.add(new Food(rand.nextInt(gameMode.mapSize()), rand.nextInt(gameMode.mapSize())));
+				addFood(new Food(rand.nextInt(gameMode.mapSize()), rand.nextInt(gameMode.mapSize())));
 				gameActionListeners.forEach(t -> t.updated());
 			}
 		});
@@ -80,7 +89,7 @@ public class GameData {
 				for (Snake snake : snakes) {
 					for (Food food : foods) {
 						if (snake.hitFood(food)) {
-							foods.remove(food);
+							removeFood(food);
 							gameActionListeners.forEach(t -> {
 								t.updated();
 								t.snakeEatenFood(snakes);
@@ -118,10 +127,5 @@ public class GameData {
 		});
 	}
 
-	public record GameMode(String name, int snakeMoveInterval, int foodSpawnInterval, int gameLength, int mapSize)
-			implements Serializable {
-		public String toString() {
-			return name;
-		}
-	};
+	public record GameMode(String name, int snakeMoveInterval, int foodSpawnInterval, int gameLength, int mapSize) implements Serializable {};
 }

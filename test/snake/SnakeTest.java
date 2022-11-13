@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -109,6 +112,19 @@ public class SnakeTest {
 		Snake snake2 = new Snake(2,3,5,20,Direction.LEFT,new InputLayout(KeyEvent.VK_I,KeyEvent.VK_I,KeyEvent.VK_I,KeyEvent.VK_I));
 		assertTrue(snake2.hitSnake(snake));
 		assertFalse(snake.hitSnake(snake2));
+	}
+	
+	@Test
+	public void test_compare_snake()
+	{
+		Snake snake2 = new Snake(2,3,5,20,Direction.LEFT,new InputLayout(KeyEvent.VK_I,KeyEvent.VK_I,KeyEvent.VK_I,KeyEvent.VK_I));
+		snake2.hitFood(new Food(2,2));
+		
+		List<Snake> testList = new ArrayList<Snake>();
+		testList.add(snake2);
+		testList.add(snake);
+		assertSame(snake2, Collections.max(testList));
+		
 	}
 
 }

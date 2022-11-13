@@ -1,7 +1,9 @@
 package snake;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -12,6 +14,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -21,8 +24,17 @@ public class GameView extends JPanel {
 	final int WIDTH = 20;
 	final int HEIGHT = 20;
 	
+	private JLabel pauseLabel;
 	private GameData model;
 
+	public GameView() {
+		setLayout(new BorderLayout());
+		pauseLabel = new JLabel("Press R to resume!");
+		pauseLabel.setFont(new Font("arial",0,32));
+		add(pauseLabel,BorderLayout.CENTER);
+		pauseLabel.setVisible(false);
+	}
+	
 	public GameData getModel() {
 		return model;
 	}
@@ -36,12 +48,14 @@ public class GameView extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.stopGame();
+				pauseLabel.setVisible(true);
 			}
 		});
 		addKeyAction(KeyEvent.VK_R, "resume", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.startGame();
+				pauseLabel.setVisible(false);
 			}
 		});
 		this.model.addGameActionListener(new GameActionListener() {
