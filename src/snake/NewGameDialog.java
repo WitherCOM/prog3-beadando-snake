@@ -30,6 +30,9 @@ public class NewGameDialog extends JDialog {
 	private GameData gameData;
 	private GameModeDataView gameModeDataView;
 	
+	/**
+	 * Initializes the components for the new game modal
+	 */
 	public void initComponents()
 	{
 		setLayout(new GridLayout(3,1,0,10));
@@ -96,6 +99,9 @@ public class NewGameDialog extends JDialog {
 		initComponents();
 	}
 	
+	/**
+	 * Creates a new one player game with W,A,S,D control
+	 */
 	private void newOnePlayerGame()
 	{
 		GameData.GameMode gameMode = (GameData.GameMode)gameModeComboBoxModel.getSelectedItem();
@@ -106,6 +112,9 @@ public class NewGameDialog extends JDialog {
 		setVisible(false);
 	}
 	
+	/**
+	 * Creates a new two player game with arrow and W,A,S,D control
+	 */
 	private void newTwoPlayerGame()
 	{
 		GameData.GameMode gameMode = (GameData.GameMode)gameModeComboBoxModel.getSelectedItem();

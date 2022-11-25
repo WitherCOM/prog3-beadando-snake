@@ -7,4 +7,5 @@
  */
 module Beadandó {
 	requires java.desktop;
+	requires java.xml;
 }

@@ -10,11 +10,21 @@ public class Food implements Serializable {
 		location = new Point(x,y);
 	}
 	
+	/**
+	 * Get x coordinate of food position
+	 * 
+	 * @return Integer
+	 */
 	public int getX()
 	{
 		return location.x;
 	}
 	
+	/**
+	 * Get y coordinate of food position
+	 * 
+	 * @return Integer
+	 */
 	public int getY()
 	{
 		return location.y;

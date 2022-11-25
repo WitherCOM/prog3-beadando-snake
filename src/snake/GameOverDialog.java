@@ -15,11 +15,17 @@ import javax.swing.JPanel;
 public class GameOverDialog extends JDialog
 {
 	private String msg;
+	private JLabel label;
 	
+	/**
+	 *  Initialize components for game over dialog
+	 *  
+	 */
 	public void initComponents()
 	{
 		setLayout(new BorderLayout());
-		add(new JLabel(msg + " is the winner!"),BorderLayout.NORTH);
+		label = new JLabel();
+		add(label,BorderLayout.NORTH);
 		JButton okBtn = new JButton("Ok");
 		setMinimumSize(new Dimension(300,150));
 		okBtn.addActionListener(new ActionListener() {
@@ -39,12 +45,23 @@ public class GameOverDialog extends JDialog
 		super(frame,"Game over!");
 		initComponents();
 	}
-
+	
+	/**
+	 * Getter function for message
+	 * 
+	 * @return
+	 */
 	public String getMsg() {
 		return msg;
 	}
 
+	/**
+	 * Sets the message of the game over dialog
+	 * 
+	 * @param msg The message to set
+	 */
 	public void setMsg(String msg) {
 		this.msg = msg;
+		label.setText(msg + " is the winner!");
 	}
 }

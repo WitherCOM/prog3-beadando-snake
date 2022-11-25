@@ -35,10 +35,21 @@ public class GameView extends JPanel {
 		pauseLabel.setVisible(false);
 	}
 	
+	/**
+	 * Return the model
+	 * 
+	 * @return
+	 */
 	public GameData getModel() {
 		return model;
 	}
-
+	
+	/**
+	 * Set the GameData model for this view and setups the input and action
+	 * maps for snake control.
+	 * 
+	 * @param model
+	 */
 	public void setModel(GameData model) {
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).clear();
 		getActionMap().clear();
@@ -85,6 +96,9 @@ public class GameView extends JPanel {
 		});
 	}
 	
+	/**
+	 * This function paints the snakes and the foods on the GameView
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -120,11 +134,23 @@ public class GameView extends JPanel {
 	}
 	}
 	
+	/**
+	 * Creates an InputMap for a specific key and binds an action
+	 * 
+	 * @param keyCode
+	 * @param Name
+	 * @param action
+	 */
     private void addKeyAction(int keyCode, String Name, Action action){
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyCode, 0), Name);
         getActionMap().put(Name, action);
     }
     
+    /**
+     * Set the input layout for a snake
+     * 
+     * @param snake
+     */
     private void setInputLayout(Snake snake)
     {
 		addKeyAction(snake.getControl().upKeyCode(), snake +"_UP", new AbstractAction() {
@@ -157,6 +183,11 @@ public class GameView extends JPanel {
 		});
     }
     
+    /**
+     * Returns the size of the GameView 
+     * 
+     * @return
+     */
     public Dimension getFrameDimension()
     {
     	return new Dimension(model.getGameMode().mapSize()*WIDTH,model.getGameMode().mapSize()*HEIGHT);

@@ -27,22 +27,48 @@ public class GameData implements Serializable {
 		snakes = new ArrayList<Snake>();
 	}
 
+	/**
+	 * Add a new snake to GameData
+	 * 
+	 * @param snake
+	 */
 	public void addSnake(Snake snake) {
 		snakes.add(snake);
 	}
 
+	/**
+	 * Return the added snakes
+	 * 
+	 * @return
+	 */
 	public List<Snake> getSnakes() {
 		return snakes;
 	}
 
+	
+	/**
+	 * Return a list of the spawned foods
+	 * 
+	 * @return
+	 */
 	public List<Food> getFoods() {
 		return foods;
 	}
 	
+	/**
+	 * Adds a new food to food list
+	 * 
+	 * @param food
+	 */
 	public void addFood(Food food) {
 		foods.add(food);
 	}
 	
+	/**
+	 * Removes a food the array
+	 * 
+	 * @param food
+	 */
 	public void removeFood(Food food)
 	{
 		foods.remove(food);
@@ -51,29 +77,54 @@ public class GameData implements Serializable {
 	public GameMode getGameMode() {
 		return gameMode;
 	}
-
+	
+	/**
+	 * Set the current gameMode and initializes the currentTime with gameLength (from gameMode) 
+	 * Calls the function to setup timers
+	 * 
+	 * @param gameMode
+	 */
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 		currentTime = gameMode.gameLength();
 		setupTimers();
 	}
 
+	/**
+	 * Adds a game action listener
+	 * 
+	 * @param gameActionListener
+	 */
 	public void addGameActionListener(GameActionListener gameActionListener) {
 		gameActionListeners.add(gameActionListener);
 	}
-
+	
+	/**
+	 * Starts the game with starting all the three timers(foodSpawner, snakeMover and gameTimer)
+	 */
 	public void startGame() {
 		foodSpawner.start();
 		snakeMover.start();
 		gameTimer.start();
 	}
 
+	/**
+	 * Stops the game with stopping all the timers
+	 */
 	public void stopGame() {
 		foodSpawner.stop();
 		snakeMover.stop();
 		gameTimer.stop();
 	}
-
+	
+	
+	/**
+	 * Set up all of the timers
+	 * foodSpawner is the timer for spawning food with interval from the gameMode
+	 * snakeMover is the timer for moving snakes with interval from the gameMode
+	 * gameTimer is ticking every seconds and reducing the currentGameLength
+	 * 
+	 */
 	private void setupTimers() {
 		foodSpawner = new Timer(gameMode.foodSpawnInterval(), new ActionListener() {
 			@Override

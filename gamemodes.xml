@@ -1,0 +1,23 @@
+<gamemodes>
+  <gamemode>
+    <name>EASY</name>
+    <snake-move-interval>1000</snake-move-interval>
+    <food-spawn-interval>10000</food-spawn-interval>
+    <game-length>100</game-length>
+    <map-size>40</map-size>
+  </gamemode>
+  <gamemode>
+    <name>MEDIUM</name>
+    <snake-move-interval>500</snake-move-interval>
+    <food-spawn-interval>6000</food-spawn-interval>
+    <game-length>100</game-length>
+    <map-size>20</map-size>
+  </gamemode>
+  <gamemode>
+    <name>HARD</name>
+    <snake-move-interval>500</snake-move-interval>
+    <food-spawn-interval>3000</food-spawn-interval>
+    <game-length>100</game-length>
+    <map-size>20</map-size>
+  </gamemode>
+</gamemodes>

@@ -12,6 +12,9 @@ public class GameModeDataView extends JPanel {
 	private JLabel mapSizeLabel;
 	private JLabel gameTimeLabel;
 
+	/**
+	 * Initializes the view components for GameMode visualization panel
+	 */
 	private void initComponents()
 	{
 		setLayout(new GridLayout(4,2,0,10));
@@ -37,6 +40,11 @@ public class GameModeDataView extends JPanel {
 		initComponents();
 	}
 
+	/**
+	 * Set the game mode for this view panel
+	 * 
+	 * @param gameMode
+	 */
 	public void setGameMode(GameData.GameMode gameMode) {
 		foodSpawnLabel.setText(String.valueOf(gameMode.foodSpawnInterval()));
 		moveSpeedLabel.setText(String.valueOf(gameMode.snakeMoveInterval()));

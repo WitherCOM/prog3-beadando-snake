@@ -33,33 +33,55 @@ public class Snake implements Serializable, Comparable<Snake> {
 		}
 	}
 	
+	/**
+	 * Turns UP the snake if it not faces DOWN and can turn.
+	 */
 	public void turnUp()
 	{
 		if(direction != Direction.DOWN && canTurn)
 			direction = Direction.UP;
 	}
+	
+	/**
+	 * Turns RIGHT the snake if it not faces LEFT and can turn.
+	 */
 	public void turnRight()
 	{
 		if(direction != Direction.LEFT && canTurn)
 			direction = Direction.RIGHT;
 	}
+	
+	/**
+	 * Turns DOWN the snake if it not faces UP and can turn.
+	 */
 	public void turnDown()
 	{
 		if(direction != Direction.UP && canTurn)
 			direction = Direction.DOWN;
 	}
+	
+	/**
+	 * Turns LEFT the snake if it not faces RIGHT and can turn.
+	 */
 	public void turnLeft()
 	{
 		if(direction != Direction.RIGHT && canTurn)
 			direction = Direction.LEFT;
 	}
 	
-	
+	/**
+	 * Increases the snake length with adding a new point to the body points list
+	 */
 	synchronized public void increaseLength()
 	{
 		body.add(new Point(head));
 	}
 	
+	/**
+	 * Moves the snake. Changes the head position with the chosen direction. Put the previous 
+	 * head point into the start of the body array and removes the last point from the 
+	 * body array.
+	 */
 	synchronized public void move()
 	{
 		body.add(0,new Point(head));
@@ -68,10 +90,22 @@ public class Snake implements Serializable, Comparable<Snake> {
 		canTurn = true;
 	}
 	
+	/**
+	 * Return the array of the body points
+	 * 
+	 * @return
+	 */
 	public ArrayList<Point> getBodyPoints() {
 		return body;
 	}
 	
+	/**
+	 * Calculates the neighbor point of a point with a given direction
+	 * 
+	 * @param p
+	 * @param dir
+	 * @return
+	 */
 	private Point neighbourPointByDirection(Point p, Direction dir)
 	{
 		switch(dir)
@@ -88,6 +122,14 @@ public class Snake implements Serializable, Comparable<Snake> {
 		return new Point(p);
 	}
 	
+	
+	/**
+	 * Calculates the opposite neighbor point of a point with a given direction
+	 * 
+	 * @param p
+	 * @param dir
+	 * @return
+	 */
 	private Point neighbourPointByReversedDirection(Point p, Direction dir)
 	{
 		switch(dir)
@@ -114,6 +156,12 @@ public class Snake implements Serializable, Comparable<Snake> {
 		return head.y;
 	}
 	
+	/**
+	 * Checks if the snakes hit a food or not
+	 * 
+	 * @param food
+	 * @return
+	 */
 	public boolean hitFood(Food food)
 	{
 		if(head.x == food.getX() && head.y == food.getY())
@@ -125,6 +173,12 @@ public class Snake implements Serializable, Comparable<Snake> {
 		return false;
 	}
 	
+	/**
+	 * Checks if a snakes hit another snake or itself
+	 * 
+	 * @param snake
+	 * @return
+	 */
 	public boolean hitSnake(Snake snake)
 	{
 		for(Point p : snake.getBodyPoints())
