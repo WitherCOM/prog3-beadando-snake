@@ -15,7 +15,7 @@ public class GameData implements Serializable {
 	private List<Snake> snakes;
 	private List<Food> foods;
 	private GameMode gameMode;
-	private List<GameActionListener> gameActionListeners;
+	transient private List<GameActionListener> gameActionListeners;
 	private Timer foodSpawner;
 	private Timer snakeMover;
 	private Timer gameTimer;
@@ -87,7 +87,6 @@ public class GameData implements Serializable {
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 		currentTime = gameMode.gameLength();
-		setupTimers();
 	}
 
 	/**
@@ -96,6 +95,8 @@ public class GameData implements Serializable {
 	 * @param gameActionListener
 	 */
 	public void addGameActionListener(GameActionListener gameActionListener) {
+		if(gameActionListeners == null)
+			gameActionListeners = new ArrayList<GameActionListener>();
 		gameActionListeners.add(gameActionListener);
 	}
 	
@@ -103,6 +104,7 @@ public class GameData implements Serializable {
 	 * Starts the game with starting all the three timers(foodSpawner, snakeMover and gameTimer)
 	 */
 	public void startGame() {
+		setupTimers();
 		foodSpawner.start();
 		snakeMover.start();
 		gameTimer.start();

@@ -33,7 +33,7 @@ public class NewGameDialog extends JDialog {
 	/**
 	 * Initializes the components for the new game modal
 	 */
-	public void initComponents()
+	private void initComponents()
 	{
 		setLayout(new GridLayout(3,1,0,10));
 		

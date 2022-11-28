@@ -21,7 +21,7 @@ public class GameOverDialog extends JDialog
 	 *  Initialize components for game over dialog
 	 *  
 	 */
-	public void initComponents()
+	private void initComponents()
 	{
 		setLayout(new BorderLayout());
 		label = new JLabel();

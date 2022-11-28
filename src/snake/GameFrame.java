@@ -93,7 +93,7 @@ public class GameFrame extends JFrame {
 	 * 
 	 * @param gameMenu
 	 */
-	public void setGameMenuItems(JMenu gameMenu)
+	private void setGameMenuItems(JMenu gameMenu)
 	{
 		JMenuItem newGame = new JMenuItem("New game");
 		NewGameAction newGameAction = new NewGameAction(newGameDialog, this::initGame);
@@ -115,11 +115,15 @@ public class GameFrame extends JFrame {
 	/**
 	 * Initializes the view components for the JFrame
 	 */
-	public void initViewComponents()
+	private void initViewComponents()
 	{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setPreferredSize(new Dimension(500, 500));
+		
+		//Game view
+		gameView = new GameView();
+		add(gameView,BorderLayout.CENTER); 
 		
 		//North bar
 		JPanel northBar = new JPanel();
@@ -155,10 +159,6 @@ public class GameFrame extends JFrame {
 		infoPanel.add(new JLabel("Points: "));
 		pointLabel = new JLabel();
 		infoPanel.add(pointLabel);
-		
-		//Game view
-		gameView = new GameView();
-		add(gameView,BorderLayout.CENTER); 
 		
 		pack();
 	}
@@ -280,7 +280,7 @@ public class GameFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			loadGameDialog.setVisible(true);
 			try {
-				ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(loadGameDialog.getFile()));
+				ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(loadGameDialog.getDirectory() + loadGameDialog.getFile()));
 				GameData gameData = (GameData)inputStream.readObject();
 				if(gameData != null)
 					initGameFunc.initGame(gameData);
@@ -289,7 +289,6 @@ public class GameFrame extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			initGameFunc.initGame(null);
 		}
 	}
 	
@@ -307,7 +306,7 @@ public class GameFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			saveGameDialog.setVisible(true);
 			try {
-				ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(saveGameDialog.getFile()));
+				ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(saveGameDialog.getDirectory()+saveGameDialog.getFile()));
 				outputStream.writeObject(gameView.getModel());
 				outputStream.close();
 			} catch (IOException e1) {
